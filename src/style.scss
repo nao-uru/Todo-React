@@ -1,0 +1,119 @@
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Times New Roman', Times, serif;
+  background-color: teal;
+  color: white;
+  text-align: center;
+}
+
+.wrapper {
+  width: 30%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.title {
+  font-size: 48px;
+  margin: 80px 0 40px 0;
+}
+
+.content {
+  font-size: 1.5em;
+  font-weight: bold;
+  font-family: 'Times New Roman', Times, serif;
+  margin: 0 0 20px 0;
+}
+
+.input-area {
+  width: 100%;
+  
+  & input {
+    width: 100%;
+    border: none;
+    background-color: rgba(0,0,0,.2);
+    height: 50px;
+    font-size: 20px;
+    border-radius: 5px;
+    padding: 10px;
+  }
+
+  & input[type="text"] {
+    color: white;
+    box-sizing: border-box;
+    font-family: "Times New Roman",Times,serif;
+  }
+
+  & input::placeholder {
+    color: rgba(255, 255, 255, 0.564);
+  }
+
+  & #add-input {
+    margin-bottom: 40px;
+  }
+  & #search-input {
+    margin-bottom: 24px;
+  }
+
+
+}
+
+.task-area {
+  width: 100%;
+  & ul {
+    padding: 0;
+  }
+}
+
+.task-area-list {
+  position: relative;
+  height: 50px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: rgba(3,80,63,.5);
+  margin: 0 auto 10px auto;
+  padding: 10px;
+  cursor: pointer;
+  
+  
+  & input {
+    width: 100%;
+    border: none;
+    border-radius: 5px;
+    font-size: 24px;
+    line-height: 1.5;
+    font-weight: 700;
+    color: white;
+    padding: 10px 15px 10px 10px;
+    background-color: transparent;
+    font-family: 'Times New Roman', Times, serif;
+    cursor: pointer;
+  }
+
+  .task-done {
+    background-color: rgba(3,80,63,.5);
+    font-weight: normal;
+    font-size: 20px;
+  }
+
+  & i {
+    position: absolute;
+    right: 20px;
+    color: orange;
+    cursor: pointer;
+    font-size: 20px;
+    z-index: 20;
+  }
+
+  
+}
+
+.none {
+  display: none;
+}
