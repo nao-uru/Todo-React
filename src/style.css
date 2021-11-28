@@ -143,4 +143,16 @@ body {
 .none {
   display: none;
 }
+
+.link a {
+  color: white;
+  font-size: 20px;
+  text-decoration: none;
+}
+
+.link :hover {
+  color: #084b4b;
+  -webkit-transition: .8s;
+  transition: .8s;
+}
 /*# sourceMappingURL=style.css.map */

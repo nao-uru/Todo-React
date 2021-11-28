@@ -117,3 +117,19 @@ body {
 .none {
   display: none;
 }
+
+.link {
+
+  a {
+    color: white;
+    font-size: 20px;
+    text-decoration: none;
+  }
+
+  :hover {
+    color: rgb(8, 75, 75);
+    transition: .8s;
+
+   }
+  
+}

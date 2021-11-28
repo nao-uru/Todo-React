@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 export const App = (props) => {
   const [addInput, setTodoText] = useState('');
   const [searchText,setSearchText] = useState("");
-  const [taskList, setTaskList] = useState(["aaa","bbb","React"]);
+  const [taskList, setTaskList] = useState(["Task1","Task2","React"]);
   const newTasks = [...taskList,addInput];
   // const [inputDone, setInputDone] = useState('task-done');
 
@@ -100,6 +100,8 @@ export const App = (props) => {
         })}
       </ul>
     </div>
+
+    <p className="link"><a href="https://nao-uru.github.io/Todo-Js/">JavaScripc Only</a></p>
 
   </div>
 
