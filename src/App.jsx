@@ -27,10 +27,15 @@ const INIT_DATA = [
  */
 export const App = () => {
   /* state */
+  /* add input title */
   const [addInput, setAddInput] = useState("");
+  /* search input text */
   const [searchText, setSearchText] = useState("");
+  /* todo list */
   const [taskList, setTaskList] = useState(INIT_DATA);
-  const newTasks = [...taskList, addInput];
+  /* todo 採番ID */
+  const [uniqueId, setUniqueId] = useState(INIT_DATA.length + 1);
+  // const newTasks = [...taskList, addInput];
   // const [inputDone, setInputDone] = useState('task-done');
 
   /**
@@ -46,10 +51,34 @@ export const App = () => {
    * @returns
    */
   const addTask = (event) => {
-    if (event.key === "Enter" && addInput === "") {
+    if (event.key === "Enter" && addInput !== "") {
       event.preventDefault();
 
-      setTaskList(newTasks);
+      // 元の配列を破壊しないように配列のコピーを作成して、その値でstateを更新する
+      // pushでの配列追加は元の配列の値を変更するのでエラーになる
+
+      // スプレッド構文で展開することで、配列のコピーを作成
+      // const newTask = [
+      //   ...taskList,
+      //   {
+      //     id: uniqueId,
+      //     title: addInput,
+      //   },
+      // ];
+
+      // 配列のコピーはconcatでも可能
+      // https://kskpblog.com/javascript-array-add/
+      const newTask = taskList.concat({
+        id: uniqueId,
+        title: addInput,
+      });
+
+      setTaskList(newTask);
+
+      // 採番IDを連番する
+      setUniqueId(uniqueId + 1);
+
+      // 入力値をリセット
       setAddInput("");
     }
   };
@@ -58,24 +87,30 @@ export const App = () => {
   const searchTaskInput = (event) => {
     setSearchText(() => event.target.value);
 
-    newTasks.map((inputSearch) => {
-      // if (inputSearch.startsWith(searchText) !== false) {
-      //   console.log(inputSearch);
-      //   console.log(searchText);
-      //   console.log("remain tasks");
-      // } else {
-      //   console.log("no here");
-      // }
+    // newTasks.map((inputSearch) => {
+    //   if (inputSearch.startsWith(searchText) !== false) {
+    //     console.log(inputSearch);
+    //     console.log(searchText);
+    //     console.log("remain tasks");
+    //   } else {
+    //     console.log("no here");
+    //   }
 
-      return "";
-    });
+    //   return "";
+    // });
   };
 
-  // タスク削除
-  const onClickDelete = (index) => {
-    const deleteTask = [...taskList];
-    deleteTask.splice(index, 1);
-    setTaskList(deleteTask);
+  /**
+   * タスク削除
+   * @param {number} id
+   */
+  const onClickDelete = (id) => {
+    // Todoのデータ構造を変更したので、処理を変更する (ただの配列ではなく、オブジェクト配列になったため)
+    // const deleteTask = [...taskList];
+    // deleteTask.splice(index, 1);
+
+    const deletedNewTaskList = taskList.filter((todo) => todo.id !== id);
+    setTaskList(deletedNewTaskList);
 
     alert("todoを削除してもいいですか？");
   };
@@ -84,7 +119,7 @@ export const App = () => {
   const onClickDone = (index) => {};
 
   const onChangeInput = () => {
-    console.log("hello");
+    // console.log("hello");
   };
 
   return (
@@ -132,12 +167,12 @@ export const App = () => {
                     type="text"
                     value={todo.title}
                     onChange={onChangeInput}
-                    onClick={() => onClickDone(index)}
+                    onClick={() => onClickDone(todo.id)}
                     className="task"
                   />
                   <i
                     className="fa fa-trash"
-                    onClick={() => onClickDelete(index)}
+                    onClick={() => onClickDelete(todo.id)}
                   ></i>
                 </li>
               );
