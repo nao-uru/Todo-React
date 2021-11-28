@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
+import { AddInput } from './components/AddInput';
 
 export const App = (props) => {
   const [addInput, setTodoText] = useState('');
-  const [searchText,setSearchText] = useState("");
+  const [searchText,setSearchText] = useState('');
   const [taskList, setTaskList] = useState(["Task1","Task2","React"]);
   const newTasks = [...taskList,addInput];
-  // const [inputDone, setInputDone] = useState('task-done');
 
-  console.log(searchText);
+  // const [inputDone, setInputDone] = useState(['']);
+  // const doneTasks = [...inputDone,takeDone];
+
+  // console.log(searchText);
 
   // タスク追加
   const onChangeAddInput = (e) => setTodoText(e.target.value);
@@ -20,9 +23,7 @@ export const App = (props) => {
       setTaskList(newTasks);
       setTodoText('');
 
-      console.log(onChangeAddInput);
       console.log('New task is ' + addInput); 
-      console.log(newTasks);
     }
   }
 
@@ -30,7 +31,6 @@ export const App = (props) => {
   const searchTaskInput = (e) => {
     setSearchText(() => e.target.value);
     
-
     console.log(searchText);
 
     newTasks.map((inputSearch)=> {
@@ -38,14 +38,14 @@ export const App = (props) => {
 
         console.log(inputSearch);
         console.log(searchText);
-        console.log('remain tasks');
 
       }else {
         console.log('no here');
       }
 
-      return '';
+      return searchText;
     });
+   
   }
 
   
@@ -59,13 +59,19 @@ export const App = (props) => {
     alert('todoを削除してもいいですか？');
   }  
 
+
   // タスク完了
-  const onClickDone = (index) => {
-    
-  }
-  
-  const onChangeInput = ()=> {
-    console.log('hello');
+  const onClickDone =(todo)=> {
+    const taskDone = [...taskList];
+    // console.log(todo);
+    taskDone.map((todo) => {
+      todo = false;
+      console.log('hello'+ todo);
+      return todo;
+    });
+
+    setTaskList(taskDone);
+
   }
   
   return (
@@ -75,15 +81,15 @@ export const App = (props) => {
     
     <div className="wrapper">
 
-    <div className="input-area">
-      <form id="add-form" method="get">
-        <input id="add-input" placeholder="New Task" type="text" autoComplete="off" onKeyPress={addTask} value={addInput} onChange={onChangeAddInput} />
-      </form>
-    </div>
+    <AddInput 
+     addTask={addTask}
+     inputValue={addInput}
+     onChange={onChangeAddInput}
+    />
   
     <div className="input-area">
-      <form id="search-form" method="get">
-        <input id="search-input" type="text" placeholder="Search Keyword"  autoComplete="off"　onChange={searchTaskInput} value={searchText} />
+      <form id="search-form">
+        <input id="search-input" type="text" placeholder="Search Keyword"  autoComplete="off"　onChange={searchTaskInput} value={searchText}  />
       </form>
     </div>
 
@@ -92,8 +98,8 @@ export const App = (props) => {
       <ul id="task-area-list">
         {taskList.map((todo,index) => {
           return (
-            <li className="task-area-list" key={index}>
-              <input type="text" value={todo} onChange={onChangeInput} onClick={()=> onClickDone(index)} className='task'/>
+            <li className="task-area-list" key={index} >
+              <input type="text" defaultValue={todo} className={todo === false ? 'task-done' : 'task'} onClick={() => onClickDone(todo)}/>
               <i className="fa fa-trash" onClick={()=>onClickDelete(index)}></i>
             </li>
           )
