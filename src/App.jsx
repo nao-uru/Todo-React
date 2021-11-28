@@ -1,23 +1,56 @@
+/**
+ * App
+ */
 import React, { useState } from "react";
 
+/**
+ * Todo初期値
+ */
+const INIT_DATA = [
+  {
+    id: 1,
+    title: "aaa",
+  },
+  {
+    id: 2,
+    title: "bbb",
+  },
+  {
+    id: 3,
+    title: "React",
+  },
+];
+
+/**
+ * App
+ * @returns
+ */
 export const App = () => {
-  const [addInput, setTodoText] = useState("");
+  /* state */
+  const [addInput, setAddInput] = useState("");
   const [searchText, setSearchText] = useState("");
-  const [taskList, setTaskList] = useState(["aaa", "bbb", "React"]);
+  const [taskList, setTaskList] = useState(INIT_DATA);
   const newTasks = [...taskList, addInput];
   // const [inputDone, setInputDone] = useState('task-done');
 
-  console.log(searchText);
+  /**
+   * addInputの変更処理
+   * @param {*} event
+   * @returns
+   */
+  const onChangeAddInput = (event) => setAddInput(event.target.value);
 
-  // タスク追加
-  const onChangeAddInput = (event) => setTodoText(event.target.value);
+  /**
+   * タスク追加処理
+   * @param {*} event
+   * @returns
+   */
   const addTask = (event) => {
-    if (event.key === "Enter") {
+    if (event.key === "Enter" && addInput === "") {
       event.preventDefault();
-      if (addInput === "") return;
 
       setTaskList(newTasks);
-      setTodoText("");
+      setAddInput("");
     }
   };
 
@@ -26,13 +59,13 @@ export const App = () => {
     setSearchText(() => event.target.value);
 
     newTasks.map((inputSearch) => {
-      if (inputSearch.startsWith(searchText) !== false) {
-        console.log(inputSearch);
-        console.log(searchText);
-        console.log("remain tasks");
-      } else {
-        console.log("no here");
-      }
+      // if (inputSearch.startsWith(searchText) !== false) {
+      //   console.log(inputSearch);
+      //   console.log(searchText);
+      //   console.log("remain tasks");
+      // } else {
+      //   console.log("no here");
+      // }
 
       return "";
     });
@@ -91,10 +124,13 @@ export const App = () => {
           <ul id="task-area-list">
             {taskList.map((todo, index) => {
               return (
-                <li className="task-area-list" key={index}>
+                // keyにindexを扱うことはお勧めしない
+                // 参考: https://ja.reactjs.org/docs/lists-and-keys.html#keys
+                // 参考2: https://zenn.dev/luvmini511/articles/f7b22d93e9c182
+                <li className="task-area-list" key={todo.id}>
                   <input
                     type="text"
-                    value={todo}
+                    value={todo.title}
                     onChange={onChangeInput}
                     onClick={() => onClickDone(index)}
                     className="task"
