@@ -108,11 +108,10 @@ export const App = () => {
     // Todoのデータ構造を変更したので、処理を変更する (ただの配列ではなく、オブジェクト配列になったため)
     // const deleteTask = [...taskList];
     // deleteTask.splice(index, 1);
+    alert("todoを削除してもいいですか？");
 
     const deletedNewTaskList = taskList.filter((todo) => todo.id !== id);
     setTaskList(deletedNewTaskList);
-
-    alert("todoを削除してもいいですか？");
   };
 
   // タスク完了
