@@ -2,18 +2,13 @@ import React, { useState } from 'react';
 import { AddInput } from './components/AddInput';
 
 export const App = (props) => {
-  const [addInput, setTodoText] = useState('');
+  const [addInput, setAddInput] = useState('');
   const [searchText,setSearchText] = useState('');
-  const [taskList, setTaskList] = useState(["Task1","Task2","React"]);
+  const [taskList, setTaskList] = useState(['Task1','Task2','React']);
   const newTasks = [...taskList,addInput];
 
-  // const [inputDone, setInputDone] = useState(['']);
-  // const doneTasks = [...inputDone,takeDone];
-
-  // console.log(searchText);
-
   // タスク追加
-  const onChangeAddInput = (e) => setTodoText(e.target.value);
+  const onChangeAddInput = (event) => setAddInput(event.target.value);
   const addTask = (event) => {
     if(event.key === 'Enter') {
       console.log('add task');
@@ -21,7 +16,7 @@ export const App = (props) => {
       if(addInput === '') return;
       
       setTaskList(newTasks);
-      setTodoText('');
+      setAddInput('');
 
       console.log('New task is ' + addInput); 
     }
@@ -53,17 +48,20 @@ export const App = (props) => {
   // タスク削除
   const onClickDelete = (index) => {
     const deleteTask = [...taskList];
-    deleteTask.splice(index,1);
-    setTaskList(deleteTask);
+    
 
-    alert('todoを削除してもいいですか？');
+    const delateOK = window.confirm('todoを削除してもいいですか？');
+    if(delateOK === true) {
+      deleteTask.splice(index,1);
+      setTaskList(deleteTask);
+    }
+    
   }  
 
 
   // タスク完了
   const onClickDone =(todo)=> {
     const taskDone = [...taskList];
-    // console.log(todo);
     taskDone.map((todo) => {
       todo = false;
       console.log('hello'+ todo);
